@@ -1,4 +1,13 @@
 
-This program acts like the ubiquitous unix "which" command, but is less
-obnoxious (says rjbs).
+
+This archive contains the distribution App-Whiff,
+version 0.003:
+
+  find the first executable of a series of alternatives
+
+This software is copyright (c) 2008 by Ricardo SIGNES.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
 

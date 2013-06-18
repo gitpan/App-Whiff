@@ -1,6 +1,41 @@
 use strict;
 use warnings;
 package App::Whiff;
+{
+  $App::Whiff::VERSION = '0.003';
+}
+# ABSTRACT: find the first executable of a series of alternatives
+
+use File::Which ();
+
+
+sub find_first {
+  my ($self, $names) = @_;
+
+  my $file;
+  for my $name (@$names) {
+    $file = File::Which::which($name);
+    return $file if $file;
+  }
+
+  return;
+}
+
+
+sub run {
+  my ($self) = @_;
+
+  die "usage: whiff <command ...>\n" unless @ARGV;
+  my $file = $self->find_first([ @ARGV ]);
+  die "no alternative found\n" unless $file;
+  print "$file\n";
+}
+
+1;
+
+__END__
+
+=pod
 
 =head1 NAME
 
@@ -8,13 +43,7 @@ App::Whiff - find the first executable of a series of alternatives
 
 =head1 VERSION
 
-version 0.002
-
-=cut
-
-our $VERSION = '0.002';
-
-use File::Which;
+version 0.003
 
 =head1 DESCRIPTION
 
@@ -31,46 +60,19 @@ Given an arrayref of command names (which should I<not> be anything other than
 base filename), this method either returns an absolute path to the first of the
 alternatives found in the path (using L<File::Which>) or false.
 
-=cut
-
-sub find_first {
-  my ($self, $names) = @_;
-
-  my $file;
-  for my $name (@$names) {
-    $file = File::Which::which($name);
-    return $file if $file;
-  }
-
-  return;
-}
-
 =head2 run
 
 This method is called by the F<whiff> program to ... well, run.
 
-=cut
+=head1 AUTHOR
 
-sub run {
-  my ($self) = @_;
+Ricardo SIGNES <rjbs@cpan.org>
 
-  die "usage: whiff <command ...>\n" unless @ARGV;
-  my $file = $self->find_first([ @ARGV ]);
-  die "no alternative found\n" unless $file;
-  print "$file\n";
-}
+=head1 COPYRIGHT AND LICENSE
 
-=head1 BUGS
+This software is copyright (c) 2008 by Ricardo SIGNES.
 
-Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org>. I will be notified, and then you'll automatically be
-notified of progress on your bug as I make changes.
-
-=head1 COPYRIGHT
-
-Copyright 2008, Ricardo SIGNES.  This program is free software;  you can
-redistribute it and/or modify it under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-1;
