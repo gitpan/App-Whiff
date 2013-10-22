@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package App::Whiff;
 {
-  $App::Whiff::VERSION = '0.003';
+  $App::Whiff::VERSION = '0.004';
 }
 # ABSTRACT: find the first executable of a series of alternatives
 
@@ -43,7 +43,7 @@ App::Whiff - find the first executable of a series of alternatives
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 DESCRIPTION
 
